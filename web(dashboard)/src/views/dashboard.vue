@@ -100,7 +100,7 @@ onUnmounted(() => {
     </div>
 
     <div v-else class="container">
-      <!-- Top Row: Sensors & Actuator -->
+      <!-- top row: sensors & actuator -->
       <div class="grid-2">
         <SensorMonitor 
           :reading="latestReading" 
@@ -112,12 +112,12 @@ onUnmounted(() => {
         />
       </div>
 
-      <!-- Middle Row: Chart -->
+      <!-- middle row: chart -->
       <div class="chart-section">
         <SensorChart />
       </div>
 
-      <!-- Bottom Row: Config & Activity -->
+      <!-- bottom row: config & activity -->
       <div class="grid-2">
         <ThresholdConfigg 
           :thresholds="thresholds" 

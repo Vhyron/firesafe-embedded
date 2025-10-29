@@ -1,4 +1,3 @@
-<!-- sensor_monitor.vue - SLEEK & MODERN -->
 <script setup lang="ts">
 import type { SensorReading, ThresholdConfig } from '@/lib/supabase'
 
@@ -52,7 +51,7 @@ const getSensorColor = (sensorNum: number) => {
     </div>
 
     <div v-else class="sensors-grid">
-      <!-- Sensor 1 -->
+      <!-- sensor 1 -->
       <div class="sensor-card" :style="{ '--sensor-color': getSensorColor(1).primary, '--sensor-bg': getSensorColor(1).bg }">
         <div class="sensor-header">
           <div class="sensor-label">
@@ -81,7 +80,7 @@ const getSensorColor = (sensorNum: number) => {
         </div>
       </div>
 
-      <!-- Sensor 2 -->
+      <!-- sensor 2 -->
       <div class="sensor-card" :style="{ '--sensor-color': getSensorColor(2).primary, '--sensor-bg': getSensorColor(2).bg }">
         <div class="sensor-header">
           <div class="sensor-label">
@@ -110,7 +109,7 @@ const getSensorColor = (sensorNum: number) => {
         </div>
       </div>
 
-      <!-- Sensor 3 -->
+      <!-- sensor 3 -->
       <div class="sensor-card" v-if="reading.sensor_3_value !== null" :style="{ '--sensor-color': getSensorColor(3).primary, '--sensor-bg': getSensorColor(3).bg }">
         <div class="sensor-header">
           <div class="sensor-label">
