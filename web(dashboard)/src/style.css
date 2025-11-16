@@ -1,0 +1,42 @@
+:root {
+  /* dark theme colors */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  
+  /* vue green accents */
+  --accent-primary: #42b883;
+  --accent-secondary: #35495e;
+  --accent-light: #4fc08d;
+  --accent-dark: #2c7a5f;
+  
+  /* text colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  /* status colors */
+  --success: #42b883;
+  --success-bg: #1e4d3a;
+  --error: #ef4444;
+  --error-bg: #4c1d1d;
+  --warning: #f59e0b;
+  --warning-bg: #4d3b1a;
+  
+  /* borders & shadows */
+  --border-color: #334155;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
