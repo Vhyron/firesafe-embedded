@@ -56,26 +56,26 @@ const getSensorColor = (sensorNum: number) => {
         <div class="sensor-header">
           <div class="sensor-label">
             <span class="sensor-number">01</span>
-            <span class="sensor-name">Sensor</span>
+            <span class="sensor-name">Temperature</span>
           </div>
           <div 
             class="status-indicator"
-            :class="checkThreshold(reading.sensor_1_value, 'sensor_1') ? 'active' : 'inactive'"
+            :class="checkThreshold(reading.temperature, 'temperature') ? 'active' : 'inactive'"
           >
             <span class="status-dot"></span>
           </div>
         </div>
         
         <div class="sensor-value-container">
-          <div class="sensor-value">{{ reading.sensor_1_value.toFixed(1) }}</div>
+          <div class="sensor-value">{{ reading.temperature.toFixed(1) }}</div>
           <div class="sensor-unit">units</div>
         </div>
         
-        <div class="sensor-threshold" v-if="getThresholdForSensor('sensor_1')">
+        <div class="sensor-threshold" v-if="getThresholdForSensor('temperature')">
           <span class="threshold-label">Threshold</span>
           <span class="threshold-value">
-            {{ getThresholdForSensor('sensor_1')?.comparison_operator }} 
-            {{ getThresholdForSensor('sensor_1')?.threshold_value }}
+            {{ getThresholdForSensor('temperature')?.comparison_operator }} 
+            {{ getThresholdForSensor('temperature')?.threshold_value }}
           </span>
         </div>
       </div>
@@ -85,55 +85,55 @@ const getSensorColor = (sensorNum: number) => {
         <div class="sensor-header">
           <div class="sensor-label">
             <span class="sensor-number">02</span>
-            <span class="sensor-name">Sensor</span>
+            <span class="sensor-name">Humidity</span>
           </div>
           <div 
             class="status-indicator"
-            :class="checkThreshold(reading.sensor_2_value, 'sensor_2') ? 'active' : 'inactive'"
+            :class="checkThreshold(reading.humidity, 'humidity') ? 'active' : 'inactive'"
           >
             <span class="status-dot"></span>
           </div>
         </div>
         
         <div class="sensor-value-container">
-          <div class="sensor-value">{{ reading.sensor_2_value.toFixed(1) }}</div>
+          <div class="sensor-value">{{ reading.humidity.toFixed(1) }}</div>
           <div class="sensor-unit">units</div>
         </div>
         
-        <div class="sensor-threshold" v-if="getThresholdForSensor('sensor_2')">
+        <div class="sensor-threshold" v-if="getThresholdForSensor('humidity')">
           <span class="threshold-label">Threshold</span>
           <span class="threshold-value">
-            {{ getThresholdForSensor('sensor_2')?.comparison_operator }} 
-            {{ getThresholdForSensor('sensor_2')?.threshold_value }}
+            {{ getThresholdForSensor('humidity')?.comparison_operator }} 
+            {{ getThresholdForSensor('humidity')?.threshold_value }}
           </span>
         </div>
       </div>
 
       <!-- sensor 3 -->
-      <div class="sensor-card" v-if="reading.sensor_3_value !== null" :style="{ '--sensor-color': getSensorColor(3).primary, '--sensor-bg': getSensorColor(3).bg }">
+      <div class="sensor-card" v-if="reading.gas !== null" :style="{ '--sensor-color': getSensorColor(3).primary, '--sensor-bg': getSensorColor(3).bg }">
         <div class="sensor-header">
           <div class="sensor-label">
             <span class="sensor-number">03</span>
-            <span class="sensor-name">Sensor</span>
+            <span class="sensor-name">Gas</span>
           </div>
           <div 
             class="status-indicator"
-            :class="checkThreshold(reading.sensor_3_value, 'sensor_3') ? 'active' : 'inactive'"
+            :class="checkThreshold(reading.gas, 'gas') ? 'active' : 'inactive'"
           >
             <span class="status-dot"></span>
           </div>
         </div>
         
         <div class="sensor-value-container">
-          <div class="sensor-value">{{ reading.sensor_3_value.toFixed(1) }}</div>
+          <div class="sensor-value">{{ reading.gas.toFixed(1) }}</div>
           <div class="sensor-unit">units</div>
         </div>
         
-        <div class="sensor-threshold" v-if="getThresholdForSensor('sensor_3')">
+        <div class="sensor-threshold" v-if="getThresholdForSensor('gas')">
           <span class="threshold-label">Threshold</span>
           <span class="threshold-value">
-            {{ getThresholdForSensor('sensor_3')?.comparison_operator }} 
-            {{ getThresholdForSensor('sensor_3')?.threshold_value }}
+            {{ getThresholdForSensor('gas')?.comparison_operator }} 
+            {{ getThresholdForSensor('gas')?.threshold_value }}
           </span>
         </div>
       </div>

@@ -39,19 +39,9 @@ const chartData = computed(() => {
     labels,
     datasets: [
       {
-        label: 'Sensor 1',
-        data: readings.value.map(r => r.sensor_1_value),
+        label: 'Temperature',
+        data: readings.value.map(r => r.temperature),
         borderColor: '#42b883',
-        backgroundColor: 'rgba(66, 184, 131, 0.1)',
-        tension: 0.4,
-        fill: true,
-        pointRadius: 3,
-        pointHoverRadius: 6
-      },
-      {
-        label: 'Sensor 2',
-        data: readings.value.map(r => r.sensor_2_value),
-        borderColor: '#35495e',
         backgroundColor: 'rgba(53, 73, 94, 0.1)',
         tension: 0.4,
         fill: true,
@@ -59,10 +49,20 @@ const chartData = computed(() => {
         pointHoverRadius: 6
       },
       {
-        label: 'Sensor 3',
-        data: readings.value.map(r => r.sensor_3_value ?? 0),
-        borderColor: '#4fc08d',
-        backgroundColor: 'rgba(79, 192, 141, 0.1)',
+        label: 'Humidity',
+        data: readings.value.map(r => r.humidity),
+        borderColor: '#42b883',
+        backgroundColor: 'rgba(53, 73, 94, 0.1)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 3,
+        pointHoverRadius: 6
+      },
+      {
+        label: 'Gas',
+        data: readings.value.map(r => r.gas ?? 0),
+        borderColor: '#42b883',
+        backgroundColor: 'rgba(53, 73, 94, 0.1)',
         tension: 0.4,
         fill: true,
         pointRadius: 3,
@@ -146,8 +146,8 @@ let refreshInterval: any
 onMounted(() => {
   fetchReadings()
 
-  // refresh every 5 seconds
-  refreshInterval = setInterval(fetchReadings, 5000)
+  // refresh every 3 seconds
+  refreshInterval = setInterval(fetchReadings, 3000)
 
   // realtime subscription
   subscription = supabase

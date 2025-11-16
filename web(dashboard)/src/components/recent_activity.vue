@@ -76,7 +76,7 @@ const getActivityColor = (item: ActivityItem) => {
 const getActivityDescription = (item: ActivityItem) => {
   if (item.type === 'sensor') {
     const reading = item.data as SensorReading
-    return `Sensor reading: S1=${reading.sensor_1_value.toFixed(1)}, S2=${reading.sensor_2_value.toFixed(1)}, S3=${reading.sensor_3_value?.toFixed(1) ?? 'N/A'}`
+    return `Sensor reading: S1=${reading.temperature.toFixed(1)}, S2=${reading.humidity.toFixed(1)}, S3=${reading.gas?.toFixed(1) ?? 'N/A'}`
   } else {
     const state = item.data as ActuatorState
     return `Actuator ${state.command === 'stop' ? 'stopped' : 'started moving'}`

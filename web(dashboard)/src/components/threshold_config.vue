@@ -126,7 +126,7 @@ const operatorSymbols = {
 }
 
 const formatSensorName = (name: string) => {
-  return name.replace('_', ' ').toUpperCase()
+  return name.toUpperCase()
 }
 
 const formatDate = (dateString: string) => {

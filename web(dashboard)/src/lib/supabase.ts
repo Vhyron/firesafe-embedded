@@ -9,13 +9,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// typeScript types for your database tables
+// typeScript types for database tables
 export interface SensorReading {
   id: number
   created_at: string
-  sensor_1_value: number
-  sensor_2_value: number
-  sensor_3_value: number | null
+  temperature: number
+  humidity: number
+  gas: number | null
   all_thresholds_met: boolean
   notes: string | null
 }
