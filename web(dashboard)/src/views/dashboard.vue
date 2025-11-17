@@ -5,6 +5,7 @@ import type { SensorReading, ActuatorState, ThresholdConfig } from '@/lib/supaba
 
 import SensorMonitor from '@/components/sensor_monitor.vue'
 import ActuatorStatus from '@/components/actuator_status.vue'
+import ServoConfig from '@/components/servo_config.vue'
 import SensorChart from '@/components/sensor_chart.vue'
 import ThresholdConfigg from '@/components/threshold_config.vue'
 import RecentActivity from '@/components/recent_activity.vue'
@@ -112,6 +113,11 @@ onUnmounted(() => {
         />
       </div>
 
+      <!-- NEW: Servo Manual Control -->
+      <div class="servo-control-section">
+        <ServoConfig />
+      </div>
+
       <!-- middle row: chart -->
       <div class="chart-section">
         <SensorChart />
@@ -171,6 +177,10 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
+  margin-top: 1rem;
+}
+
+.servo-control-section {
   margin-top: 1rem;
 }
 

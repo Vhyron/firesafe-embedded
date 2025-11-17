@@ -1,6 +1,5 @@
 // ========================================
 // SERVO ESP8266 - main.ino
-// Servo Motor Actuator Control
 // ========================================
 
 #include <ESP8266WiFi.h>
@@ -12,17 +11,21 @@
 
 Servo myServo;
 
+String currentMode = "automatic";
+
 int currentPosition = 90;
 bool isInitialPhase = true;
 bool movingUp = true;
-
 bool servoShouldMove = true;
+
+int manualTargetPosition = 90;
+
 unsigned long lastCommandCheck = 0;
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
-  
+
   connectToWiFi();
   initializeServo();
 }
@@ -35,13 +38,10 @@ void loop() {
 
   unsigned long currentTime = millis();
   
+  // check for commands from cloud every 3 seconds
   if (currentTime - lastCommandCheck >= COMMAND_CHECK_INTERVAL) {
     lastCommandCheck = currentTime;
     checkCloudCommand();
-    
-    if (servoShouldMove) {
-      moveToNextPosition();
-    }
   }
   
   delay(100);
@@ -77,6 +77,7 @@ void initializeServo() {
   myServo.attach(SERVO_PIN, 500, 2400);
   delay(100);
   
+  // start at 90 degrees
   myServo.write(90);
   currentPosition = 90;
   delay(500);
@@ -94,7 +95,7 @@ void checkCloudCommand() {
   
   HTTPClient http;
   
-  // send GET request to check for command
+  // send GET request
   http.begin(client, COMMAND_CHECK_URL);
   http.addHeader("Authorization", "Bearer " + String(SUPABASE_ANON_KEY));
   
@@ -105,13 +106,13 @@ void checkCloudCommand() {
     Serial.print("  ✓ Response code: ");
     Serial.println(httpResponseCode);
     
+    // parse response
     parseCloudCommand(response);
     
   } else {
     Serial.print("  ✗ Error checking command. Code: ");
     Serial.println(httpResponseCode);
-    Serial.println("  → Defaulting to MOVE mode");
-    servoShouldMove = true;
+    Serial.println("  → Continuing in current mode");
   }
   
   http.end();
@@ -128,68 +129,112 @@ void parseCloudCommand(String response) {
   }
   
   if (doc["success"] == true) {
+    String mode = doc["mode"];
     String command = doc["command"];
-    bool thresholdsMet = doc["thresholds_met"];
     
-    float temp = doc["current_readings"]["temperature"] | 0.0;
-    float humidity = doc["current_readings"]["humidity"] | 0.0;
-    float gas = doc["current_readings"]["gas"] | 0.0;
+    // check if mode changed
+    if (mode != currentMode) {
+      Serial.println("\n  ╔═══════════════════════════════╗");
+      Serial.print("  ║  MODE CHANGED: ");
+      Serial.print(mode);
+      Serial.println("          ║");
+      Serial.println("  ╚═══════════════════════════════╝");
+      currentMode = mode;
+    }
     
-    Serial.println("\n  → Sensor Data Received:");
-    Serial.print("    Temperature: ");
-    Serial.print(temp);
-    Serial.println("°C");
-    Serial.print("    Humidity:    ");
-    Serial.print(humidity);
-    Serial.println("%");
-    Serial.print("    Gas Level:   ");
-    Serial.println(gas);
-    
-    Serial.print("\n  → Command: ");
-    Serial.println(command);
-    Serial.print("  → Thresholds met: ");
-    Serial.println(thresholdsMet ? "YES ✓" : "NO ✗");
-    
-    // update servo state
-    bool previousState = servoShouldMove;
-    
-    if (command == "stop") {
-      servoShouldMove = false;
-      if (previousState != servoShouldMove) {
-        Serial.println("\n  ╔═══════════════════════════════╗");
-        Serial.println("  ║  ⏸  SERVO STOPPED            ║");
-        Serial.println("  ║  All thresholds met!         ║");
-        Serial.print("  ║  Holding at: ");
+    // manual mode
+    if (mode == "manual") {
+      int manualPos = doc["manual_position"];
+      
+      Serial.println("\n  🎮 MANUAL MODE");
+      Serial.print("  → Target Position: ");
+      Serial.print(manualPos);
+      Serial.println("°");
+      
+      // move to manual position if different from current
+      if (manualPos != currentPosition) {
+        Serial.print("  → Moving from ");
         Serial.print(currentPosition);
-        Serial.println("°               ║");
-        Serial.println("  ╚═══════════════════════════════╝");
+        Serial.print("° to ");
+        Serial.print(manualPos);
+        Serial.println("°");
+        
+        myServo.write(manualPos);
+        currentPosition = manualPos;
+        
+        Serial.print("  ✓ Position set to ");
+        Serial.print(currentPosition);
+        Serial.println("°");
       } else {
-        Serial.print("  → Servo remains STOPPED at ");
+        Serial.print("  → Holding at ");
         Serial.print(currentPosition);
         Serial.println("°");
       }
-    } else if (command == "move") {
-      servoShouldMove = true;
-      if (previousState != servoShouldMove) {
-        Serial.println("\n  ╔═══════════════════════════════╗");
-        Serial.println("  ║  ▶  SERVO RESUMING           ║");
-        Serial.println("  ║  Thresholds not met          ║");
-        Serial.println("  ╚═══════════════════════════════╝");
-      } else {
-        Serial.println("  → Servo continues MOVING");
+    }
+    // automatic mode
+    else if (mode == "automatic") {
+      bool thresholdsMet = doc["thresholds_met"];
+      
+      // display sensor data if available
+      if (doc.containsKey("current_readings")) {
+        float temp = doc["current_readings"]["temperature"] | 0.0;
+        float humidity = doc["current_readings"]["humidity"] | 0.0;
+        float gas = doc["current_readings"]["gas"] | 0.0;
+        
+        Serial.println("\n  📊 Sensor Data:");
+        Serial.print("    Temp: ");
+        Serial.print(temp);
+        Serial.print("°C, Humidity: ");
+        Serial.print(humidity);
+        Serial.print("%, Gas: ");
+        Serial.println(gas);
+      }
+      
+      Serial.print("\n  🤖 AUTOMATIC MODE - Command: ");
+      Serial.println(command);
+      Serial.print("  → Thresholds met: ");
+      Serial.println(thresholdsMet ? "YES ✓" : "NO ✗");
+      
+      // update servo state
+      bool previousState = servoShouldMove;
+      
+      if (command == "stop") {
+        servoShouldMove = false;
+        if (previousState != servoShouldMove) {
+          Serial.println("\n  ╔═══════════════════════════════╗");
+          Serial.println("  ║  ⏸  SERVO STOPPED            ║");
+          Serial.println("  ║  All thresholds met!         ║");
+          Serial.print("  ║  Holding at: ");
+          Serial.print(currentPosition);
+          Serial.println("°               ║");
+          Serial.println("  ╚═══════════════════════════════╝");
+        } else {
+          Serial.print("  → Remains STOPPED at ");
+          Serial.print(currentPosition);
+          Serial.println("°");
+        }
+      } else if (command == "move") {
+        servoShouldMove = true;
+        if (previousState != servoShouldMove) {
+          Serial.println("\n  ╔═══════════════════════════════╗");
+          Serial.println("  ║  ▶  SERVO RESUMING           ║");
+          Serial.println("  ║  Thresholds not met          ║");
+          Serial.println("  ╚═══════════════════════════════╝");
+        }
+        
+        // move to next position in automatic pattern
+        moveToNextPosition();
       }
     }
   } else {
-    Serial.println("  ⚠ Cloud returned error or no data");
-    Serial.println("  → Defaulting to MOVE mode");
-    servoShouldMove = true;
+    Serial.println("  ⚠ Cloud returned error");
   }
 }
 
 void moveToNextPosition() {
   int nextPosition;
   
-  // phase 1: starts at 90°
+  // phase 1: initial movement from 90° to 0°
   if (isInitialPhase) {
     if (currentPosition > 0) {
       nextPosition = currentPosition - 30;
@@ -204,28 +249,27 @@ void moveToNextPosition() {
   // phase 2: loop between 0° and 180°
   else {
     if (movingUp) {
-      // moving from 0° to 180°
       if (currentPosition < 180) {
         nextPosition = currentPosition + 30;
         if (nextPosition > 180) nextPosition = 180;
       } else {
-        // reached 180°, reverse direction
+        // reached 180°, reverse
         nextPosition = 150;
         movingUp = false;
       }
     } else {
-      // moving from 180° to 0°
       if (currentPosition > 0) {
         nextPosition = currentPosition - 30;
         if (nextPosition < 0) nextPosition = 0;
       } else {
-        // reached 0°, reverse direction
+        // reached 0°, reverse
         nextPosition = 30;
         movingUp = true;
       }
     }
   }
   
+  // move servo
   myServo.write(nextPosition);
   currentPosition = nextPosition;
   

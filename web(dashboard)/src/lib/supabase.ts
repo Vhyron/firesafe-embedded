@@ -46,6 +46,14 @@ export interface SystemLog {
   message: string
 }
 
+export interface ServoConfig {
+  id: number
+  mode: 'automatic' | 'manual'
+  manual_position: number | null
+  updated_at: string
+  updated_by: string
+}
+
 // database type helper
 export interface Database {
   public: {
