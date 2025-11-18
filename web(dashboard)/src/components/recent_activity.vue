@@ -160,83 +160,78 @@ onUnmounted(() => {
 <style scoped>
 .card {
   background: var(--bg-card);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 8px;
+  padding: 0.75rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
-  max-height: 600px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
 }
 
 .card-title {
-  margin: 0 0 1.5rem 0;
-  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .card-title::before {
   content: '📋';
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
-.loading,
-.no-data {
+.loading, .no-data {
   text-align: center;
-  padding: 2rem;
+  padding: 1.25rem;
   color: var(--text-muted);
+  font-size: 0.75rem;
 }
 
 .activity-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   overflow-y: auto;
-  padding-right: 0.5rem;
+  padding-right: 0.35rem;
 }
 
-/* Custom Scrollbar */
 .activity-list::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .activity-list::-webkit-scrollbar-track {
   background: var(--bg-secondary);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .activity-list::-webkit-scrollbar-thumb {
   background: var(--accent-primary);
-  border-radius: 3px;
-}
-
-.activity-list::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-light);
+  border-radius: 2px;
 }
 
 .activity-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.65rem;
+  padding: 0.65rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.2s;
-  border-left: 3px solid transparent;
+  border-left: 2px solid transparent;
 }
 
 .activity-item:hover {
   background: var(--bg-hover);
   border-left-color: var(--accent-primary);
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
 .activity-icon {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
 }
 
@@ -247,8 +242,8 @@ onUnmounted(() => {
 
 .activity-description {
   color: var(--text-primary);
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  margin-bottom: 0.15rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -256,19 +251,19 @@ onUnmounted(() => {
 
 .activity-time {
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.65rem;
 }
 
 .status-indicator {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 .status-indicator.met {

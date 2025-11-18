@@ -77,53 +77,53 @@ const formatTime = (date: string) => {
 <style scoped>
 .card {
   background: var(--bg-card);
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
 }
 
 .card-title {
-  margin: 0 0 0.85rem 0;
-  font-size: 1rem;
+  margin: 0 0 0.6rem 0;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .no-data {
   text-align: center;
-  padding: 1.5rem;
+  padding: 1rem;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
 }
 
 .actuator-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.6rem;
 }
 
 .status-circle {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0;
+  margin: 0.3rem 0;
 }
 
 .status-circle.moving {
   background: var(--success-bg);
-  border: 3px solid var(--success);
+  border: 2px solid var(--success);
   animation: rotate 2s linear infinite;
 }
 
 .status-circle.stopped {
   background: var(--error-bg);
-  border: 3px solid var(--error);
+  border: 2px solid var(--error);
 }
 
 .pulse {
@@ -137,60 +137,50 @@ const formatTime = (date: string) => {
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1.3);
-    opacity: 0;
-  }
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(1.3); opacity: 0; }
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .icon {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   z-index: 1;
   line-height: 1;
 }
 
 .status-text {
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .threshold-status {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 6px;
   width: 100%;
 }
 
 .threshold-label {
   font-weight: 600;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .threshold-badge {
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
   font-weight: 600;
   margin-left: auto;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .threshold-badge.met {
@@ -208,11 +198,11 @@ const formatTime = (date: string) => {
 .info-box {
   width: 100%;
   background: var(--bg-secondary);
-  border-radius: 8px;
-  padding: 0.75rem;
+  border-radius: 6px;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .info-item {
@@ -223,23 +213,33 @@ const formatTime = (date: string) => {
 
 .info-label {
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .info-value {
   color: var(--accent-primary);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .explanation {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.5rem;
   background: var(--bg-hover);
-  border-left: 3px solid var(--accent-primary);
-  border-radius: 4px;
-  font-size: 0.75rem;
+  border-left: 2px solid var(--accent-primary);
+  border-radius: 3px;
+  font-size: 0.65rem;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.3;
+}
+
+.servo-embedded {
+  margin-top: 0.6rem;
+}
+
+.servo-embedded .card {
+  margin: 0;
+  box-shadow: none;
+  border: 1px solid transparent;
 }
 </style>

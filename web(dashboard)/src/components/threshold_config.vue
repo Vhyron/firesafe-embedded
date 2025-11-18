@@ -154,7 +154,7 @@ const formatDate = (dateString: string) => {
     <!-- global message -->
     <Transition name="slide-down">
       <div v-if="message" class="message" :class="message.type">
-        <span class="message-icon">{{ message.type === 'success' ? '✓' : '!' }}</span>
+        <span class="message-icon">{{ message.type === 'success' ? 'Success' : 'Error' }}</span>
         {{ message.text }}
       </div>
     </Transition>
@@ -181,15 +181,17 @@ const formatDate = (dateString: string) => {
                     @click="startEdit(threshold)"
                     class="btn-icon btn-edit"
                     title="Edit threshold"
+                    aria-label="Edit threshold"
                   >
-                    ✏
+                    Edit
                   </button>
                   <button 
                     @click="toggleActive(threshold)"
                     class="btn-icon btn-toggle"
                     title="Deactivate threshold"
+                    aria-label="Deactivate threshold"
                   >
-                    ○
+                    Deactivate
                   </button>
                 </div>
               </div>
@@ -285,8 +287,9 @@ const formatDate = (dateString: string) => {
                   @click="toggleActive(threshold)"
                   class="btn-icon btn-activate"
                   title="Activate threshold"
+                  aria-label="Activate threshold"
                 >
-                  ●
+                  Activate
                 </button>
               </div>
 
@@ -310,14 +313,14 @@ const formatDate = (dateString: string) => {
 <style scoped>
   .card {
     background: var(--bg-card);
-    border-radius: 10px;
-    padding: 1rem;
+    border-radius: 8px;
+    padding: 0.65rem;
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
   }
 
   .card-header {
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
   }
 
   .title-section {
@@ -325,39 +328,39 @@ const formatDate = (dateString: string) => {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .card-title {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-primary);
   }
 
   .status-badge {
-    padding: 0.35rem 0.75rem;
+    padding: 0.25rem 0.5rem;
     background: var(--success-bg);
     color: var(--success);
     border: 1px solid var(--success);
-    border-radius: 12px;
-    font-size: 0.75rem;
+    border-radius: 10px;
+    font-size: 0.65rem;
     font-weight: 600;
   }
 
   .message {
-    padding: 0.65rem 0.85rem;
+    padding: 0.5rem 0.65rem;
     border-radius: 6px;
-    margin-bottom: 1rem;
-    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.7rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     animation: slideIn 0.3s ease-out;
   }
 
   .message-icon {
-    font-size: 1rem;
+    font-size: 0.85rem;
     flex-shrink: 0;
     font-weight: 700;
   }
@@ -375,7 +378,7 @@ const formatDate = (dateString: string) => {
   }
 
   .section {
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.8rem;
   }
 
   .section:last-of-type {
@@ -383,23 +386,23 @@ const formatDate = (dateString: string) => {
   }
 
   .section-title {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 600;
     color: var(--accent-primary);
-    margin: 0 0 0.65rem 0;
+    margin: 0 0 0.4rem 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 
   .section-title::before {
     content: '';
-    width: 3px;
-    height: 12px;
+    width: 2px;
+    height: 10px;
     background: var(--accent-primary);
-    border-radius: 2px;
+    border-radius: 1px;
   }
 
   .inactive-title {
@@ -413,31 +416,31 @@ const formatDate = (dateString: string) => {
   .thresholds-list {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.4rem;
   }
 
   .threshold-item {
-    padding: 0.85rem;
+    padding: 0.5rem;
     background: var(--bg-secondary);
-    border-radius: 8px;
+    border-radius: 6px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
   }
 
   .threshold-item.active {
-    border-left: 3px solid var(--accent-primary);
-    box-shadow: 0 1px 4px rgba(66, 184, 131, 0.1);
+    border-left: 2px solid var(--accent-primary);
+    box-shadow: 0 1px 3px rgba(66, 184, 131, 0.08);
   }
 
   .threshold-item.active:hover {
-    transform: translateX(3px);
-    box-shadow: 0 2px 8px rgba(66, 184, 131, 0.15);
+    transform: translateX(2px);
+    box-shadow: 0 1px 6px rgba(66, 184, 131, 0.12);
   }
 
   .threshold-item.inactive {
     opacity: 0.6;
-    border-left: 3px solid var(--text-muted);
+    border-left: 2px solid var(--text-muted);
   }
 
   .threshold-item.inactive:hover {
@@ -448,50 +451,51 @@ const formatDate = (dateString: string) => {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 0.65rem;
-    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+    gap: 0.5rem;
   }
 
   .sensor-info {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.1rem;
   }
 
   .sensor-label {
     font-weight: 600;
     color: var(--accent-primary);
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3px;
   }
 
   .last-updated {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: var(--text-muted);
   }
 
   .inactive-badge {
-    padding: 0.2rem 0.5rem;
+    padding: 0.15rem 0.4rem;
     background: var(--bg-hover);
     color: var(--text-muted);
-    border-radius: 10px;
-    font-size: 0.7rem;
+    border-radius: 8px;
+    font-size: 0.6rem;
     font-weight: 600;
   }
 
   .actions {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .btn-icon {
+    color: var(--accent-primary);
     background: var(--bg-hover);
     border: 1px solid var(--border-color);
-    padding: 0.35rem 0.5rem;
-    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,7 +505,7 @@ const formatDate = (dateString: string) => {
   .btn-icon:hover {
     background: var(--bg-primary);
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   }
 
   .btn-edit:hover {
@@ -516,27 +520,27 @@ const formatDate = (dateString: string) => {
   .threshold-display {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.65rem;
-    padding: 0.75rem;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem; 
+    padding: 0.5rem;
     background: linear-gradient(135deg, rgba(66, 184, 131, 0.05) 0%, transparent 100%);
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   .operator-circle {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--accent-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(66, 184, 131, 0.3);
+    box-shadow: 0 1px 4px rgba(66, 184, 131, 0.2);
     flex-shrink: 0;
   }
 
   .operator {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: white;
     line-height: 1;
@@ -545,11 +549,11 @@ const formatDate = (dateString: string) => {
   .value-display {
     display: flex;
     align-items: baseline;
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
 
   .value {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--accent-light);
     line-height: 1;
@@ -558,65 +562,65 @@ const formatDate = (dateString: string) => {
   .threshold-display-compact {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
+    gap: 0.4rem;
+    padding: 0.35rem 0.5rem;
     background: var(--bg-hover);
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   .operator-text {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: var(--text-muted);
   }
 
   .value-text {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-secondary);
   }
 
   .threshold-description {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
-    padding: 0.5rem 0.75rem;
+    padding: 0.35rem 0.5rem;
     background: var(--bg-hover);
-    border-radius: 6px;
-    line-height: 1.4;
+    border-radius: 4px;
+    line-height: 1.3;
   }
 
   .edit-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.5rem;
   }
 
   .edit-badge {
-    padding: 0.25rem 0.65rem;
+    padding: 0.2rem 0.5rem;
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-dark));
     color: white;
-    border-radius: 10px;
-    font-size: 0.7rem;
+    border-radius: 8px;
+    font-size: 0.6rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
 
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
 
   .form-label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
     font-weight: 600;
   }
@@ -624,12 +628,12 @@ const formatDate = (dateString: string) => {
   .form-select,
   .form-input {
     width: 100%;
-    padding: 0.6rem 0.75rem;
+    padding: 0.4rem 0.5rem;
     background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 6px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 4px;
     color: var(--text-primary);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     transition: all 0.2s;
   }
 
@@ -637,7 +641,7 @@ const formatDate = (dateString: string) => {
   .form-input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(66, 184, 131, 0.1);
+    box-shadow: 0 0 0 2px rgba(66, 184, 131, 0.1);
     background: var(--bg-secondary);
   }
 
@@ -646,14 +650,14 @@ const formatDate = (dateString: string) => {
   }
 
   .preview-box {
-    padding: 0.6rem 0.75rem;
+    padding: 0.4rem 0.5rem;
     background: linear-gradient(135deg, rgba(66, 184, 131, 0.08) 0%, rgba(66, 184, 131, 0.02) 100%);
     border: 1px solid rgba(66, 184, 131, 0.2);
-    border-radius: 6px;
-    font-size: 0.75rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
     color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
   }
 
   .preview-box strong {
@@ -662,18 +666,18 @@ const formatDate = (dateString: string) => {
 
   .edit-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .btn {
     flex: 1;
-    padding: 0.6rem 0.85rem;
+    padding: 0.4rem 0.6rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .btn-save {
@@ -683,7 +687,7 @@ const formatDate = (dateString: string) => {
 
   .btn-save:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(66, 184, 131, 0.3);
+    box-shadow: 0 2px 6px rgba(66, 184, 131, 0.25);
   }
 
   .btn-save:disabled {
@@ -695,7 +699,7 @@ const formatDate = (dateString: string) => {
   .btn-cancel {
     background: var(--bg-hover);
     color: var(--text-secondary);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
   }
 
   .btn-cancel:hover:not(:disabled) {
@@ -705,14 +709,14 @@ const formatDate = (dateString: string) => {
   }
 
   .info-footer {
-    margin-top: 1rem;
-    padding: 0.75rem;
+    margin-top: 0.6rem;
+    padding: 0.5rem;
     background: linear-gradient(135deg, rgba(66, 184, 131, 0.08) 0%, rgba(66, 184, 131, 0.02) 100%);
-    border-left: 3px solid var(--accent-primary);
-    border-radius: 6px;
-    font-size: 0.75rem;
+    border-left: 2px solid var(--accent-primary);
+    border-radius: 4px;
+    font-size: 0.65rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.3;
   }
 
   .info-footer strong {

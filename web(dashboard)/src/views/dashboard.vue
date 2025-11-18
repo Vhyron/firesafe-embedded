@@ -142,10 +142,10 @@ onUnmounted(() => {
 }
 
 .header {
-  background: linear-gradient(135deg, #42b883 0%, #35495e 100%);
-  color: white;
+  background: linear-gradient(135deg, #0f1117 0%, #181b23 100%);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--accent-primary);
   padding: 1.25rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .container {

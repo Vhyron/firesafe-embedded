@@ -30,7 +30,7 @@ const fetchCurrentMode = async () => {
     
     if (data) {
       mode.value = data.mode
-      currentPosition.value = data.manual_position || 90
+      currentPosition.value = data.manual_position ?? 90
     }
   } catch (error) {
     console.error('Error fetching servo config:', error)
@@ -272,8 +272,8 @@ onUnmounted(() => {
 <style scoped>
 .card {
   background: var(--bg-card);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 8px;
+  padding: 0.75rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
 }
@@ -282,20 +282,20 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .mode-badge {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
   font-weight: 600;
   transition: all 0.3s;
 }
@@ -313,10 +313,10 @@ onUnmounted(() => {
 }
 
 .message {
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  margin-bottom: 0.65rem;
+  font-size: 0.75rem;
   animation: slideIn 0.3s ease-out;
 }
 
@@ -335,34 +335,33 @@ onUnmounted(() => {
 .mode-toggle {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
 }
 
 .mode-button {
-  padding: 1rem;
+  padding: 0.65rem;
   background: var(--bg-secondary);
   color: var(--text-secondary);
   border: 2px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   transition: all 0.2s;
 }
 
 .mode-button:hover:not(:disabled) {
   background: var(--bg-hover);
   color: var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .mode-button.active {
   background: var(--accent-primary);
   color: white;
   border-color: var(--accent-primary);
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .mode-button:disabled {
@@ -372,60 +371,60 @@ onUnmounted(() => {
 }
 
 .mode-description {
-  padding: 1rem;
+  padding: 0.65rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
 }
 
 .mode-description p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .manual-controls {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.75rem;
 }
 
 .position-display {
   text-align: center;
-  padding: 1.5rem;
+  padding: 0.85rem;
   background: linear-gradient(135deg, rgba(66, 184, 131, 0.1) 0%, transparent 100%);
-  border-radius: 12px;
+  border-radius: 8px;
   border: 2px solid var(--accent-primary);
 }
 
 .position-value {
-  font-size: 3.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
   color: var(--accent-primary);
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .position-label {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .position-slider {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .slider-track {
   position: relative;
-  height: 12px;
+  height: 10px;
   background: var(--bg-secondary);
-  border-radius: 6px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -441,88 +440,85 @@ onUnmounted(() => {
 .slider-thumb {
   position: absolute;
   top: 50%;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   background: white;
-  border: 3px solid var(--accent-primary);
+  border: 2px solid var(--accent-primary);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
-  padding: 0 0.25rem;
+  padding: 0 0.2rem;
 }
 
 .position-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .position-button {
-  padding: 1rem;
+  padding: 0.65rem;
   background: var(--bg-secondary);
   color: var(--text-primary);
   border: 2px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
 }
 
 .position-button:hover:not(:disabled) {
   background: var(--bg-hover);
   border-color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .position-button.active {
   background: var(--accent-primary);
   color: white;
   border-color: var(--accent-primary);
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .position-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .quick-button {
-  padding: 0.85rem;
+  padding: 0.6rem;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   transition: all 0.2s;
 }
 
 .quick-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .quick-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
 .quick-button.min {
@@ -538,19 +534,19 @@ onUnmounted(() => {
 }
 
 .info-footer {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 0.75rem;
+  padding: 0.65rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .info-item {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .info-item strong {
@@ -559,42 +555,19 @@ onUnmounted(() => {
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.3s ease;
-}
-
-.slide-down-enter-from {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.slide-down-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
   .position-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
   .quick-actions {
     grid-template-columns: 1fr;
   }
-
   .position-value {
-    font-size: 2.5rem;
+    font-size: 1.85rem;
   }
 }
 </style>

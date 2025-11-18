@@ -1,32 +1,34 @@
 :root {
   /* dark theme colors */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --bg-hover: #334155;
-  
-  /* vue green accents */
-  --accent-primary: #42b883;
-  --accent-secondary: #35495e;
-  --accent-light: #4fc08d;
-  --accent-dark: #2c7a5f;
-  
+  --bg-primary: #0f1117;
+  --bg-secondary: #181b23;
+  --bg-card: #1d1f27;
+  --bg-hover: #232733;
+
+  /* supabase green accents */
+  --accent-primary: #3ecf8e;
+  --accent-secondary: #25a56a;
+  --accent-light: #6ef2b5;
+  --accent-dark: #1b8a55;
+
   /* text colors */
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  
+  --text-primary: #e2e8f0;
+  --text-secondary: #c0c6d0;
+  --text-muted: #8b92a1;
+
   /* status colors */
-  --success: #42b883;
-  --success-bg: #1e4d3a;
-  --error: #ef4444;
-  --error-bg: #4c1d1d;
+  --success: #3ecf8e;
+  --success-bg: #113728;
+
+  --error: #f43f5e;
+  --error-bg: #3a0f18;
+
   --warning: #f59e0b;
-  --warning-bg: #4d3b1a;
-  
+  --warning-bg: #3d2a0f;
+
   /* borders & shadows */
-  --border-color: #334155;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --border-color: #2a2d36;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
 }
 
 * {

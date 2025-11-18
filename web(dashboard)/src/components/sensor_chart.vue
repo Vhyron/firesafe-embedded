@@ -211,8 +211,8 @@ const changeTimeRange = (range: '1h' | '6h' | '24h') => {
 <style scoped>
 .card {
   background: var(--bg-card);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 8px;
+  padding: 0.75rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
 }
@@ -221,39 +221,40 @@ const changeTimeRange = (range: '1h' | '6h' | '24h') => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.65rem;
 }
 
 .card-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .card-title::before {
   content: '📈';
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .time-range-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .time-range-buttons button {
-  padding: 0.5rem 1rem;
+  padding: 0.35rem 0.65rem;
   background: var(--bg-secondary);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.7rem;
   transition: all 0.2s;
 }
 
@@ -269,7 +270,7 @@ const changeTimeRange = (range: '1h' | '6h' | '24h') => {
 }
 
 .chart-container {
-  height: 400px;
+  height: 280px;
   position: relative;
 }
 
@@ -279,12 +280,12 @@ const changeTimeRange = (range: '1h' | '6h' | '24h') => {
   justify-content: center;
   height: 100%;
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
   .chart-container {
-    height: 300px;
+    height: 220px;
   }
 }
 </style>

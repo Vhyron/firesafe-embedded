@@ -165,9 +165,9 @@ void sendDataToCloud() {
   
   // JSON payload
   StaticJsonDocument<256> jsonDoc;
-  jsonDoc["sensor_1"] = temperature;
-  jsonDoc["sensor_2"] = humidity;
-  jsonDoc["sensor_3"] = mq2Value;
+  jsonDoc["temperature"] = temperature;
+  jsonDoc["humidity"] = humidity;
+  jsonDoc["gas"] = mq2Value;
   
   String payload;
   serializeJson(jsonDoc, payload);
