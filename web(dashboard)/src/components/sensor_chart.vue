@@ -28,7 +28,7 @@ ChartJS.register(
 )
 
 const readings = ref<SensorReading[]>([])
-const timeRange = ref<'1h' | '6h' | '24h'>('1h')
+const timeRange = ref<'1h' | '6h' | '24h' | 'all'>('1h')
 
 const chartData = computed(() => {
   const labels = readings.value.map(r => 
@@ -122,22 +122,27 @@ const chartOptions = computed(() => ({
 }))
 
 const fetchReadings = async () => {
-  const hoursAgo = timeRange.value === '1h' ? 1 : timeRange.value === '6h' ? 6 : 24
-  const cutoffTime = new Date()
-  cutoffTime.setHours(cutoffTime.getHours() - hoursAgo)
+  try {
+    let query = supabase.from('sensor_readings').select('*')
 
-  const { data, error } = await supabase
-    .from('sensor_readings')
-    .select('*')
-    .gte('created_at', cutoffTime.toISOString())
-    .order('created_at', { ascending: true })
+    if (timeRange.value !== 'all') {
+      const hoursAgo = timeRange.value === '1h' ? 1 : timeRange.value === '6h' ? 6 : 24
+      const cutoffTime = new Date()
+      cutoffTime.setHours(cutoffTime.getHours() - hoursAgo)
+      query = query.gte('created_at', cutoffTime.toISOString())
+    }
 
-  if (error) {
-    console.error('Error fetching readings:', error)
-    return
+    const { data, error } = await query.order('created_at', { ascending: true }) as any
+
+    if (error) {
+      console.error('Error fetching readings:', error)
+      return
+    }
+
+    readings.value = data || []
+  } catch (err) {
+    console.error('Error fetching readings:', err)
   }
-
-  readings.value = data || []
 }
 
 let subscription: any
@@ -167,7 +172,7 @@ onUnmounted(() => {
   if (refreshInterval) clearInterval(refreshInterval)
 })
 
-const changeTimeRange = (range: '1h' | '6h' | '24h') => {
+const changeTimeRange = (range: '1h' | '6h' | '24h' | 'all') => {
   timeRange.value = range
   fetchReadings()
 }
@@ -195,6 +200,12 @@ const changeTimeRange = (range: '1h' | '6h' | '24h') => {
           :class="{ active: timeRange === '24h' }"
         >
           24H
+        </button>
+        <button
+          @click="changeTimeRange('all')"
+          :class="{ active: timeRange === 'all' }"
+        >
+          All
         </button>
       </div>
     </div>
