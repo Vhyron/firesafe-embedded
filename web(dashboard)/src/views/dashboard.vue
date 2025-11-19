@@ -62,6 +62,13 @@ const setupRealtimeSubscriptions = () => {
         latestReading.value = payload.new as SensorReading
       }
     )
+    .on(
+      'postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'sensor_readings' },
+      (payload) => {
+        latestReading.value = payload.new as SensorReading
+      }
+    )
     .subscribe()
 
   actuatorSubscription = supabase
@@ -101,8 +108,7 @@ onUnmounted(() => {
     </div>
 
     <div v-else class="container">
-      <!-- top row: sensors & actuator -->
-      <div class="grid-2">
+      <div class="grid-3">
         <SensorMonitor 
           :reading="latestReading" 
           :thresholds="thresholds"
@@ -111,25 +117,19 @@ onUnmounted(() => {
           :state="latestActuator"
           :thresholds-met="latestReading?.all_thresholds_met ?? false"
         />
+        <RecentActivity />
       </div>
 
-      <!-- NEW: Servo Manual Control -->
-      <div class="servo-control-section">
-        <ServoConfig />
-      </div>
-
-      <!-- middle row: chart -->
       <div class="chart-section">
         <SensorChart />
       </div>
-
-      <!-- bottom row: config & activity -->
+      
       <div class="grid-2">
         <ThresholdConfigg 
           :thresholds="thresholds" 
           @updated="fetchInitialData"
         />
-        <RecentActivity />
+        <ServoConfig />
       </div>
     </div>
   </div>
@@ -180,6 +180,13 @@ onUnmounted(() => {
   margin-top: 1rem;
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 .servo-control-section {
   margin-top: 1rem;
 }
@@ -194,6 +201,9 @@ onUnmounted(() => {
   }
   
   .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
     grid-template-columns: 1fr;
   }
 }

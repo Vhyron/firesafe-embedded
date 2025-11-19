@@ -273,29 +273,32 @@ onUnmounted(() => {
 .card {
   background: var(--bg-card);
   border-radius: 8px;
-  padding: 0.75rem;
+  padding: 0.65rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .card-title {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .mode-badge {
-  padding: 0.35rem 0.65rem;
-  border-radius: 12px;
-  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.65rem;
   font-weight: 600;
   transition: all 0.3s;
 }
@@ -307,9 +310,9 @@ onUnmounted(() => {
 }
 
 .mode-badge.manual {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
+  background: var(--bg-hover);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
 .message {
